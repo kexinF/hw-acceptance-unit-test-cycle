@@ -12,7 +12,7 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-
+      
     when /^the (RottenPotatoes )?home\s?page$/ then '/movies'
 
     # Add more mappings here.
@@ -20,6 +20,15 @@ module NavigationHelpers
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
+    
+    when /^the home\s?page$/ 
+      movies_path
+    when /^the edit page for "(.*)"$/
+      edit_movie_path(Movie.find_by(title: $1).id)
+    when /^the details page for "(.+)"$/
+      movie_path(Movie.find_by(title: $1))
+    when /^the Similar Movies page for "(.+)"/
+      search_similar_movies_path($1)
 
     else
       begin
